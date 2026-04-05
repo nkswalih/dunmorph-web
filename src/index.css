@@ -1,0 +1,58 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background-color: #fef9f3;
+    color: #1a1a1a;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', Georgia, serif;
+  }
+
+  ::selection {
+    background-color: #c6a96b;
+    color: #fff;
+  }
+
+  input, button, textarea {
+    font-family: inherit;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-block px-10 py-4 bg-gold text-cream text-sm font-medium tracking-widest uppercase transition-all duration-500 hover:bg-gold-dark cursor-pointer;
+  }
+
+  .btn-outline {
+    @apply inline-block px-10 py-4 border border-cream text-cream text-sm font-medium tracking-widest uppercase transition-all duration-500 hover:bg-cream hover:text-cream-dark;
+  }
+
+  .btn-outline-dark {
+    @apply inline-block px-10 py-4 border border-gold text-gold text-sm font-medium tracking-widest uppercase transition-all duration-500 hover:bg-gold hover:text-cream;
+  }
+
+  .section-title {
+    @apply font-serif text-4xl md:text-5xl lg:text-6xl tracking-wide text-gray-900 mb-4;
+  }
+
+  .section-subtitle {
+    @apply text-xs tracking-widest uppercase text-gold mb-3 font-medium;
+  }
+}
