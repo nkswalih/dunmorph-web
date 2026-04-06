@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { navLinks } from '../../data/menuData';
 import { useCart } from '../../context/CartContext';
+import { searchProducts } from '../../services/api';
 import MegaMenu from './MegaMenu';
 import CartDrawer from './CartDrawer';
 import AuthDropdown from './AuthDropdown';
@@ -15,7 +16,11 @@ const Navbar = () => {
   const [accountOpen, setAccountOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchLoading, setSearchLoading] = useState(false);
   const closeTimer = useRef(null);
+  const searchTimer = useRef(null);
+  const navigate = useNavigate();
   const { cartCount } = useCart();
   const { pathname } = useLocation();
 
@@ -49,6 +54,36 @@ const Navbar = () => {
     setCartOpen(false);
     window.scrollTo(0, 0);
   }, [pathname]);
+
+  // Debounced live search
+  useEffect(() => {
+    if (!searchQuery.trim()) {
+      setSearchResults([]);
+      return;
+    }
+    setSearchLoading(true);
+    clearTimeout(searchTimer.current);
+    searchTimer.current = setTimeout(async () => {
+      try {
+        const results = await searchProducts(searchQuery);
+        setSearchResults(results.slice(0, 6));
+      } catch (err) {
+        console.error('Search failed:', err);
+      } finally {
+        setSearchLoading(false);
+      }
+    }, 300);
+    return () => clearTimeout(searchTimer.current);
+  }, [searchQuery]);
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      setSearchOpen(false);
+      navigate(`/men?search=${encodeURIComponent(searchQuery.trim())}`);
+      setSearchQuery('');
+    }
+  };
 
 
   const openMega = (key) => {
@@ -222,61 +257,104 @@ const Navbar = () => {
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 absolute left-2 top-1 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                 </svg>
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search"
-                  className="w-full text-lg bg-transparent pl-10 pr-4 py-1 outline-none font-serif tracking-wide text-gray-900 placeholder-gray-400"
-                  autoFocus={searchOpen}
-                />
+                <form onSubmit={handleSearchSubmit}>
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search"
+                    className="w-full text-lg bg-transparent pl-10 pr-4 py-1 outline-none font-serif tracking-wide text-gray-900 placeholder-gray-400"
+                    autoFocus={searchOpen}
+                  />
+                </form>
               </div>
               
-              <div className="flex gap-12">
-                {/* Search Sidebar/Links */}
-                <div className="w-1/4">
-                  <p className="text-xs uppercase tracking-widest text-gray-900 font-semibold mb-6 flex items-center gap-2">
-                    Trending Searches
-                  </p>
-                  <div className="space-y-4">
-                    {popularCollections.slice(0, 4).map((col) => (
-                       <Link
-                        key={col.name}
-                        to={col.href}
-                        onClick={() => setSearchOpen(false)}
-                        className="block text-sm text-gray-600 hover:text-gold transition-colors flex items-center gap-2"
-                      >
-                         <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" /></svg>
-                        {col.name}
-                      </Link>
-                    ))}
-                  </div>
+              {/* Live Search Results */}
+              {searchQuery.trim() ? (
+                <div>
+                  {searchLoading ? (
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                      {[...Array(3)].map((_, i) => (
+                        <div key={i} className="animate-pulse flex gap-3">
+                          <div className="w-16 h-20 bg-gray-200" />
+                          <div className="flex-1 space-y-2 py-2">
+                            <div className="h-3 bg-gray-200 w-3/4" />
+                            <div className="h-3 bg-gray-200 w-1/2" />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : searchResults.length > 0 ? (
+                    <div>
+                      <p className="text-xs tracking-widest uppercase text-gray-500 mb-4">{searchResults.length} results</p>
+                      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        {searchResults.map((product) => (
+                          <Link
+                            key={product.id}
+                            to={`/product/${product.id}`}
+                            onClick={() => { setSearchOpen(false); setSearchQuery(''); }}
+                            className="flex gap-3 group hover:bg-gray-50 p-2 transition-colors"
+                          >
+                            <div className="w-16 h-20 flex-shrink-0 overflow-hidden bg-gray-100">
+                              <img src={product.images[0]} alt={product.name} className="w-full h-full object-cover" />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <h4 className="text-sm text-gray-900 group-hover:text-gold transition-colors line-clamp-2">{product.name}</h4>
+                              <p className="text-sm text-gray-500 mt-1">₹{product.price.toLocaleString()}</p>
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="text-center py-8">
+                      <p className="text-gray-500">No results found for "{searchQuery}"</p>
+                    </div>
+                  )}
                 </div>
+              ) : (
+                <div className="flex gap-12">
+                  {/* Trending */}
+                  <div className="w-1/4">
+                    <p className="text-xs uppercase tracking-widest text-gray-900 font-semibold mb-6">Trending Searches</p>
+                    <div className="space-y-4">
+                      {popularCollections.slice(0, 4).map((col) => (
+                        <Link
+                          key={col.name}
+                          to={col.href}
+                          onClick={() => setSearchOpen(false)}
+                          className="block text-sm text-gray-600 hover:text-gold transition-colors flex items-center gap-2"
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" /></svg>
+                          {col.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
 
-                {/* Popular Categories Grid */}
-                <div className="w-3/4">
-                   <p className="text-2xl font-serif tracking-wide text-gray-900 mb-6">Popular Categories</p>
-                   <div className="grid grid-cols-4 gap-4">
+                  {/* Popular Categories */}
+                  <div className="w-3/4">
+                    <p className="text-2xl font-serif tracking-wide text-gray-900 mb-6">Popular Categories</p>
+                    <div className="grid grid-cols-4 gap-4">
                       {[
                         { title: 'Mens', img: 'https://www.finelegends.com/cdn/shop/files/download_31.png?v=1747333406', link: '/men' },
-                        { title: 'Womens', img: 'https://i0.wp.com/greenweddingshoes.com/wp-content/uploads/2025/03/casual-half-zip-sweater-white-jeans-outfit-old-money-fashion.png?fit=1024%2C9999', link: '/men' },
-                        { title: 'Accessories', img: 'https://i.pinimg.com/1200x/6b/1d/f3/6b1df3bf020f095e6ad0e196dfb73ee5.jpg' },
-                        { title: 'Watches', img: 'https://i.pinimg.com/736x/8b/b0/ba/8bb0ba7ad65b0682bff4fbd9f1483c6c.jpg', link: '/men' },
+                        { title: 'Womens', img: 'https://i0.wp.com/greenweddingshoes.com/wp-content/uploads/2025/03/casual-half-zip-sweater-white-jeans-outfit-old-money-fashion.png?fit=1024%2C9999', link: '/women' },
+                        { title: 'Accessories', img: 'https://i.pinimg.com/1200x/6b/1d/f3/6b1df3bf020f095e6ad0e196dfb73ee5.jpg', link: '/accessories' },
+                        { title: 'Watches', img: 'https://i.pinimg.com/736x/8b/b0/ba/8bb0ba7ad65b0682bff4fbd9f1483c6c.jpg', link: '/accessories' },
                       ].map((item) => (
                         <Link to={item.link} key={item.title} onClick={() => setSearchOpen(false)} className="group relative block aspect-[4/3] overflow-hidden bg-gray-100">
                           <img src={item.img} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                           <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors"></div>
                           <div className="absolute bottom-4 left-4">
-                             <h3 className="text-white font-serif text-xl tracking-wide leading-tight">{item.title}</h3>
-                             <span className="text-white text-[10px] tracking-widest uppercase relative pr-4 group-hover:underline underline-offset-4">
-                               Shop Now
-                             </span>
+                            <h3 className="text-white font-serif text-xl tracking-wide leading-tight">{item.title}</h3>
+                            <span className="text-white text-[10px] tracking-widest uppercase pr-4 group-hover:underline underline-offset-4">Shop Now</span>
                           </div>
                         </Link>
                       ))}
-                   </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
         </div>

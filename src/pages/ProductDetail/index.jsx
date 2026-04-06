@@ -1,16 +1,63 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { products } from '../../data/productData';
+import { fetchProductById } from '../../services/api';
 import { useCart } from '../../context/CartContext';
+import SEO from '../../components/SEO';
 
 const ProductDetailPage = () => {
   const { id } = useParams();
-  const product = products.find((p) => p.id === parseInt(id));
   const { addToCart } = useCart();
-
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [selectedSize, setSelectedSize] = useState(null);
   const [activeImage, setActiveImage] = useState(0);
   const [added, setAdded] = useState(false);
+
+  useEffect(() => {
+    const load = async () => {
+      setLoading(true);
+      try {
+        const data = await fetchProductById(id);
+        setProduct(data);
+      } catch (err) {
+        console.error('Failed to load product:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    load();
+  }, [id]);
+
+  if (loading) {
+    return (
+      <div className="pt-20">
+        <div className="max-w-7xl mx-auto px-6 py-16 md:py-24">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+            <div className="flex gap-4 animate-pulse">
+              <div className="flex flex-col gap-3">
+                {[...Array(3)].map((_, i) => (
+                  <div key={i} className="w-20 h-24 bg-gray-200" />
+                ))}
+              </div>
+              <div className="flex-1 aspect-[3/4] bg-gray-200" />
+            </div>
+            <div className="animate-pulse space-y-6">
+              <div className="h-4 bg-gray-200 w-1/4" />
+              <div className="h-8 bg-gray-200 w-3/4" />
+              <div className="h-6 bg-gray-200 w-1/4" />
+              <div className="h-20 bg-gray-200 w-full" />
+              <div className="flex gap-3">
+                {[...Array(5)].map((_, i) => (
+                  <div key={i} className="w-12 h-12 bg-gray-200" />
+                ))}
+              </div>
+              <div className="h-14 bg-gray-200 w-full" />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (!product) {
     return (
@@ -34,11 +81,11 @@ const ProductDetailPage = () => {
 
   return (
     <div className="pt-20">
+      <SEO title={product.name} description={product.description} />
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 px-6 py-16 md:py-24">
           {/* Image Gallery */}
           <div className="flex flex-col-reverse md:flex-row gap-4">
-            {/* Thumbnails */}
             <div className="flex md:flex-col gap-3 overflow-x-auto md:overflow-x-visible">
               {product.images.map((img, index) => (
                 <button
@@ -54,8 +101,6 @@ const ProductDetailPage = () => {
                 </button>
               ))}
             </div>
-
-            {/* Main Image */}
             <div className="flex-1 aspect-[3/4] overflow-hidden">
               <img
                 src={product.images[activeImage]}
@@ -74,11 +119,8 @@ const ProductDetailPage = () => {
             <h1 className="font-serif text-3xl md:text-4xl text-gray-900 mb-4 tracking-wide">
               {product.name}
             </h1>
-            <p className="text-2xl text-gray-900 mb-8">${product.price}</p>
-
-            <p className="text-gray-600 leading-relaxed mb-10">
-              {product.description}
-            </p>
+            <p className="text-2xl text-gray-900 mb-8">₹{product.price.toLocaleString()}</p>
+            <p className="text-gray-600 leading-relaxed mb-10">{product.description}</p>
 
             {/* Size Selector */}
             <div className="mb-8">

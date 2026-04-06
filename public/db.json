@@ -1,0 +1,324 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Men Loose Fit Linen Shirt Pink",
+      "price": 999,
+      "category": "men",
+      "subcategory": "shirts",
+      "description": "Timeless wool-blend overcoat with a refined silhouette. Crafted in Italy with meticulous attention to detail, this piece embodies the DUNMORPH philosophy of enduring elegance.",
+      "sizes": ["XS", "S", "M", "L", "XL"],
+      "images": [
+        "https://i.pinimg.com/1200x/37/5f/26/375f26bd9b1c702f4b5d36ba2501dc3e.jpg",
+        "https://i.pinimg.com/736x/44/5d/1f/445d1ff66c8ebc39a41fb6756ef9b167.jpg"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Premium Linen Cotton Freefit Crimson Red",
+      "price": 365,
+      "category": "men",
+      "subcategory": "shirts",
+      "description": "Impeccably tailored blazer in pure virgin wool. A cornerstone of the modern gentleman wardrobe, designed for those who appreciate understated sophistication.",
+      "sizes": ["S", "M", "L", "XL"],
+      "images": [
+        "https://i.pinimg.com/1200x/ab/d3/4b/abd34bfa6233319fb768d5c024855b03.jpg",
+        "https://i.pinimg.com/736x/44/5d/1f/445d1ff66c8ebc39a41fb6756ef9b167.jpg"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Black Born Men Premium Linen Shirt",
+      "price": 245,
+      "category": "men",
+      "subcategory": "shirts",
+      "description": "Pure cashmere turtleneck in a relaxed yet refined cut. The essential layer for cooler months, offering both warmth and quiet luxury.",
+      "sizes": ["S", "M", "L", "XL", "XXL"],
+      "images": [
+        "https://i.pinimg.com/736x/73/36/1d/73361d8170c804a965b9372ec1b8a5b2.jpg",
+        "https://i.pinimg.com/736x/07/82/08/0782083a82a55bcd44e76ff22d763c76.jpg"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Olive Green Premium HandStich Linen",
+      "price": 165,
+      "category": "men",
+      "subcategory": "shirts",
+      "description": "Crisp cotton Oxford shirt with DUNMORPH signature detailing. A versatile foundation for any ensemble, from boardroom to evening.",
+      "sizes": ["XS", "S", "M", "L", "XL"],
+      "images": [
+        "https://i.pinimg.com/736x/aa/0a/f3/aa0af3dce3c75a2da26ee6d8a30f0766.jpg",
+        "https://i.pinimg.com/736x/bd/a7/3d/bda73d5c156d7a83b29b4436f0a7636e.jpg"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Casual Solid Color Linen Straight Fit",
+      "price": 220,
+      "category": "men",
+      "subcategory": "trousers",
+      "description": "Flat-front tailored trousers in premium Italian fabric. Clean lines and precise construction for a sharp, modern profile.",
+      "sizes": ["28", "30", "32", "34", "36"],
+      "images": [
+        "https://i.pinimg.com/1200x/a5/56/1d/a5561db95912e9f03fe06f972e4e0868.jpg",
+        "https://i.pinimg.com/736x/54/75/8e/54758eafa3a73037f6959a06a0060e98.jpg",
+        "https://i.pinimg.com/1200x/9b/39/8d/9b398d9359465cdb4ca7e06ca5b9ff6d.jpg"
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Premium Linen White Color Loose Fit",
+      "price": 540,
+      "category": "men",
+      "subcategory": "trousers",
+      "description": "Full-grain leather weekend bag with brass hardware. Built for the man who travels with intention, this piece ages beautifully with every journey.",
+      "sizes": ["One Size"],
+      "images": [
+        "https://i.pinimg.com/736x/b1/63/b2/b163b2da5774c141751cc393a10eeedb.jpg",
+        "https://i.pinimg.com/736x/54/75/8e/54758eafa3a73037f6959a06a0060e98.jpg"
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Line Stripes Casual Baggy Pants",
+      "price": 425,
+      "category": "men",
+      "subcategory": "trousers",
+      "description": "Midnight black evening blazer with satin lapels. Made for occasions that demand presence without effort.",
+      "sizes": ["S", "M", "L", "XL"],
+      "images": [
+        "https://i.pinimg.com/736x/c8/70/0b/c8700b251c9866ce4d799419b5cd7a43.jpg",
+        "https://i.pinimg.com/1200x/9b/39/8d/9b398d9359465cdb4ca7e06ca5b9ff6d.jpg"
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Unisex Henley T Shirt White Striped",
+      "price": 195,
+      "category": "men",
+      "subcategory": "knitwear",
+      "description": "Fine-gauge merino wool knit in a relaxed crewneck cut. Effortless layering for the discerning wardrobe.",
+      "sizes": ["S", "M", "L", "XL", "XXL"],
+      "images": [
+        "https://i.pinimg.com/736x/bd/a7/3d/bda73d5c156d7a83b29b4436f0a7636e.jpg",
+        "https://i.pinimg.com/736x/4a/a4/4e/4aa44ed4565a3c324b96e184d680ffd5.jpg",
+        "https://i.pinimg.com/736x/07/82/08/0782083a82a55bcd44e76ff22d763c76.jpg"
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Women Elegant Linen Wrap Dress",
+      "price": 899,
+      "category": "women",
+      "subcategory": "dresses",
+      "description": "Gracefully draped linen wrap dress with delicate ties. Designed for the modern woman who values effortless sophistication and timeless appeal.",
+      "sizes": ["XS", "S", "M", "L", "XL"],
+      "images": [
+        "https://i.pinimg.com/736x/6d/88/6b/6d886ba4742073bf326c9206f6a27acb.jpg",
+        "https://i.pinimg.com/736x/8e/cb/b0/8ecbb058918b609caf536c9428991f41.jpg"
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Women Silk Blouse Ivory",
+      "price": 645,
+      "category": "women",
+      "subcategory": "blouses",
+      "description": "Pure silk blouse in soft ivory with a refined drape. A wardrobe essential for boardroom elegance and weekend refinement alike.",
+      "sizes": ["XS", "S", "M", "L"],
+      "images": [
+        "https://i.pinimg.com/736x/8e/cb/b0/8ecbb058918b609caf536c9428991f41.jpg",
+        "https://i.pinimg.com/736x/63/05/fe/6305fedd8d925c780b02a0f2df81f7d9.jpg"
+      ]
+    },
+    {
+      "id": 11,
+      "name": "Women Tailored Wide Leg Trousers",
+      "price": 485,
+      "category": "women",
+      "subcategory": "trousers",
+      "description": "Wide-leg trousers in premium wool blend. Relaxed yet structured, these trousers define modern luxury for the discerning woman.",
+      "sizes": ["XS", "S", "M", "L", "XL"],
+      "images": [
+        "https://i.pinimg.com/736x/a1/76/9e/a1769edff097ec6903217a577d1222f6.jpg",
+        "https://i.pinimg.com/736x/40/c7/ab/40c7ab8bfaab39aad14cef930fe6bbda.jpg"
+      ]
+    },
+    {
+      "id": 12,
+      "name": "Women Cashmere Cardigan Camel",
+      "price": 725,
+      "category": "women",
+      "subcategory": "knitwear",
+      "description": "Ultra-soft cashmere cardigan in warm camel. Layer it over silk blouses or wear alone for understated everyday elegance.",
+      "sizes": ["S", "M", "L", "XL"],
+      "images": [
+        "https://i.pinimg.com/736x/63/05/fe/6305fedd8d925c780b02a0f2df81f7d9.jpg",
+        "https://i.pinimg.com/736x/69/6b/43/696b437d02e1feddfd6ed1ae71997790.jpg"
+      ]
+    },
+    {
+      "id": 13,
+      "name": "Women Pleated Midi Skirt",
+      "price": 425,
+      "category": "women",
+      "subcategory": "skirts",
+      "description": "Fluid pleated midi skirt in a flowing silhouette. Movement and grace, crafted for occasions that demand quiet confidence.",
+      "sizes": ["XS", "S", "M", "L"],
+      "images": [
+        "https://i.pinimg.com/736x/69/6b/43/696b437d02e1feddfd6ed1ae71997790.jpg",
+        "https://i.pinimg.com/736x/a1/76/9e/a1769edff097ec6903217a577d1222f6.jpg"
+      ]
+    },
+    {
+      "id": 14,
+      "name": "Women Tailored Blazer Noir",
+      "price": 865,
+      "category": "women",
+      "subcategory": "blazers",
+      "description": "Precision-cut black blazer with sharp shoulders and a tapered waist. Power dressing, reimagined for the modern era.",
+      "sizes": ["XS", "S", "M", "L", "XL"],
+      "images": [
+        "https://i.pinimg.com/736x/40/c7/ab/40c7ab8bfaab39aad14cef930fe6bbda.jpg",
+        "https://i.pinimg.com/736x/6d/88/6b/6d886ba4742073bf326c9206f6a27acb.jpg"
+      ]
+    },
+    {
+      "id": 15,
+      "name": "Leather Weekend Bag",
+      "price": 540,
+      "category": "women",
+      "subcategory": "bags",
+      "description": "Full-grain leather weekend bag with brass hardware. Built for the woman who travels with intention, this piece ages beautifully with every journey.",
+      "sizes": ["One Size"],
+      "images": [
+        "https://i.pinimg.com/1200x/63/db/81/63db81ad5161022925e0dd268ef91e0e.jpg",
+        "https://i.pinimg.com/736x/b2/dc/69/b2dc6901f83384b9550d7be7e83d886c.jpg"
+      ]
+    },
+    {
+      "id": 16,
+      "name": "Women Minimalist Tote Bag",
+      "price": 385,
+      "category": "women",
+      "subcategory": "bags",
+      "description": "Structured leather tote in minimalist design. Clean lines and premium hardware for the woman who carries sophistication wherever she goes.",
+      "sizes": ["One Size"],
+      "images": [
+        "https://i.pinimg.com/736x/b2/dc/69/b2dc6901f83384b9550d7be7e83d886c.jpg",
+        "https://i.pinimg.com/1200x/63/db/81/63db81ad5161022925e0dd268ef91e0e.jpg"
+      ]
+    },
+    {
+      "id": 17,
+      "name": "Classic Chronograph Watch Gold",
+      "price": 2450,
+      "category": "accessories",
+      "subcategory": "watches",
+      "description": "Precision Swiss movement chronograph in polished gold case. Sapphire crystal face with hand-stitched leather strap. A timepiece for the ages.",
+      "sizes": ["One Size"],
+      "images": [
+        "https://i.pinimg.com/736x/8b/b0/ba/8bb0ba7ad65b0682bff4fbd9f1483c6c.jpg",
+        "https://i.pinimg.com/736x/f2/3a/48/f23a48f3bca2927e300f9c0d50e50e6d.jpg"
+      ]
+    },
+    {
+      "id": 18,
+      "name": "Minimalist Steel Watch Silver",
+      "price": 1850,
+      "category": "accessories",
+      "subcategory": "watches",
+      "description": "Clean dial with brushed steel case and mesh bracelet. Understated elegance for the modern minimalist.",
+      "sizes": ["One Size"],
+      "images": [
+        "https://i.pinimg.com/736x/f2/3a/48/f23a48f3bca2927e300f9c0d50e50e6d.jpg",
+        "https://i.pinimg.com/736x/8b/b0/ba/8bb0ba7ad65b0682bff4fbd9f1483c6c.jpg"
+      ]
+    },
+    {
+      "id": 19,
+      "name": "Italian Leather Belt Dark Brown",
+      "price": 195,
+      "category": "accessories",
+      "subcategory": "belts",
+      "description": "Hand-finished Italian leather belt with custom brass buckle. Every detail refined for the discerning gentleman.",
+      "sizes": ["30", "32", "34", "36", "38"],
+      "images": [
+        "https://i.pinimg.com/736x/a3/2e/c1/a32ec16a10d994c9b92f0f04bce8d7e9.jpg",
+        "https://i.pinimg.com/736x/6b/1d/f3/6b1df3bf020f095e6ad0e196dfb73ee5.jpg"
+      ]
+    },
+    {
+      "id": 20,
+      "name": "Aviator Sunglasses Gold Frame",
+      "price": 320,
+      "category": "accessories",
+      "subcategory": "sunglasses",
+      "description": "Polarized aviator sunglasses with gold-tone titanium frame. UV400 protection with premium optical clarity.",
+      "sizes": ["One Size"],
+      "images": [
+        "https://i.pinimg.com/736x/cc/1e/47/cc1e47c8e80d04f4baf7b4adf2e65a66.jpg",
+        "https://i.pinimg.com/736x/6b/1d/f3/6b1df3bf020f095e6ad0e196dfb73ee5.jpg"
+      ]
+    },
+    {
+      "id": 21,
+      "name": "Premium Leather Wallet Black",
+      "price": 175,
+      "category": "accessories",
+      "subcategory": "wallets",
+      "description": "Slim bi-fold wallet in premium black leather. RFID-blocking technology with hand-stitched edges.",
+      "sizes": ["One Size"],
+      "images": [
+        "https://i.pinimg.com/736x/6b/1d/f3/6b1df3bf020f095e6ad0e196dfb73ee5.jpg",
+        "https://i.pinimg.com/736x/a3/2e/c1/a32ec16a10d994c9b92f0f04bce8d7e9.jpg"
+      ]
+    },
+    {
+      "id": 22,
+      "name": "Silk Pocket Square Set",
+      "price": 95,
+      "category": "accessories",
+      "subcategory": "pocket-squares",
+      "description": "Set of three hand-rolled silk pocket squares in complementary tones. The finishing touch for the well-dressed gentleman.",
+      "sizes": ["One Size"],
+      "images": [
+        "https://i.pinimg.com/736x/a3/2e/c1/a32ec16a10d994c9b92f0f04bce8d7e9.jpg",
+        "https://i.pinimg.com/736x/cc/1e/47/cc1e47c8e80d04f4baf7b4adf2e65a66.jpg"
+      ]
+    },
+    {
+      "id": 23,
+      "name": "Canvas Weekend Duffel",
+      "price": 445,
+      "category": "accessories",
+      "subcategory": "bags",
+      "description": "Waxed canvas duffel with leather trim and brass hardware. The perfect companion for impromptu getaways.",
+      "sizes": ["One Size"],
+      "images": [
+        "https://i.pinimg.com/736x/b2/dc/69/b2dc6901f83384b9550d7be7e83d886c.jpg",
+        "https://i.pinimg.com/1200x/63/db/81/63db81ad5161022925e0dd268ef91e0e.jpg"
+      ]
+    },
+    {
+      "id": 24,
+      "name": "Cashmere Scarf Charcoal",
+      "price": 285,
+      "category": "accessories",
+      "subcategory": "scarves",
+      "description": "Pure Mongolian cashmere scarf in deep charcoal. Lightweight warmth and understated sophistication.",
+      "sizes": ["One Size"],
+      "images": [
+        "https://i.pinimg.com/736x/cc/1e/47/cc1e47c8e80d04f4baf7b4adf2e65a66.jpg",
+        "https://i.pinimg.com/736x/f2/3a/48/f23a48f3bca2927e300f9c0d50e50e6d.jpg"
+      ]
+    }
+  ],
+  "collections": [
+    { "id": 1, "name": "Men", "href": "/men", "active": true, "image": "https://www.finelegends.com/cdn/shop/files/download_31.png?v=1747333406" },
+    { "id": 2, "name": "Women", "href": "/women", "active": true, "image": "https://i0.wp.com/greenweddingshoes.com/wp-content/uploads/2025/03/casual-half-zip-sweater-white-jeans-outfit-old-money-fashion.png?fit=1024%2C9999" },
+    { "id": 3, "name": "Accessories", "href": "/accessories", "active": true, "image": "https://i.pinimg.com/1200x/6b/1d/f3/6b1df3bf020f095e6ad0e196dfb73ee5.jpg" },
+    { "id": 4, "name": "Watches", "href": "/accessories?sub=watches", "active": true, "image": "https://i.pinimg.com/736x/8b/b0/ba/8bb0ba7ad65b0682bff4fbd9f1483c6c.jpg" }
+  ]
+}

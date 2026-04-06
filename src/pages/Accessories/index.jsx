@@ -5,34 +5,34 @@ import HeroSlider from '../../components/HeroSlider';
 import FilterSidebar from '../../components/FilterSidebar';
 import SEO from '../../components/SEO';
 
-const womenHeroSlides = [
+const accessoriesHeroSlides = [
   {
-    image: 'https://i.pinimg.com/1200x/6d/88/6b/6d886ba4742073bf326c9206f6a27acb.jpg',
-    title: "Women's Collection",
-    subtitle: 'The Edit',
-    description: 'Elegance redefined. Each piece designed with intention for the modern woman.',
-    link: '/women',
-    cta: 'Shop Now',
+    image: 'https://i.pinimg.com/736x/8b/b0/ba/8bb0ba7ad65b0682bff4fbd9f1483c6c.jpg',
+    title: 'Accessories',
+    subtitle: 'The Finishing Touch',
+    description: 'Curated accessories that complete the look. Watches, bags, and more.',
+    link: '/accessories',
+    cta: 'Shop All',
   },
   {
-    image: 'https://i.pinimg.com/736x/40/c7/ab/40c7ab8bfaab39aad14cef930fe6bbda.jpg',
-    title: 'Power Dressing',
-    subtitle: 'New Arrivals',
-    description: 'Precision-cut blazers and tailored pieces for the modern era.',
-    link: '/women',
+    image: 'https://i.pinimg.com/1200x/6b/1d/f3/6b1df3bf020f095e6ad0e196dfb73ee5.jpg',
+    title: 'Leather Goods',
+    subtitle: 'Heritage Craft',
+    description: 'Full-grain leather, hand-stitched details, and timeless design.',
+    link: '/accessories',
     cta: 'Explore',
   },
   {
-    image: 'https://i.pinimg.com/736x/63/05/fe/6305fedd8d925c780b02a0f2df81f7d9.jpg',
-    title: 'Cashmere & Silk',
-    subtitle: 'Premium Fabrics',
-    description: 'Luxurious textures that define understated sophistication.',
-    link: '/women',
-    cta: 'View All',
+    image: 'https://i.pinimg.com/736x/f2/3a/48/f23a48f3bca2927e300f9c0d50e50e6d.jpg',
+    title: 'Timepieces',
+    subtitle: 'Swiss Precision',
+    description: 'Watches crafted for those who value every moment.',
+    link: '/accessories',
+    cta: 'Discover',
   },
 ];
 
-const WomenCollectionPage = () => {
+const AccessoriesPage = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filterOpen, setFilterOpen] = useState(false);
@@ -50,9 +50,9 @@ const WomenCollectionPage = () => {
     const loadFilterOptions = async () => {
       try {
         const [subs, szs, pr] = await Promise.all([
-          getSubcategories('women'),
-          getAvailableSizes('women'),
-          getPriceRange('women'),
+          getSubcategories('accessories'),
+          getAvailableSizes('accessories'),
+          getPriceRange('accessories'),
         ]);
         setSubcategories(subs);
         setSizes(szs);
@@ -69,7 +69,7 @@ const WomenCollectionPage = () => {
       setLoading(true);
       try {
         const data = await fetchProducts({
-          category: 'women',
+          category: 'accessories',
           subcategory: filters.subcategory || undefined,
           size: filters.size || undefined,
           maxPrice: filters.maxPrice,
@@ -87,9 +87,9 @@ const WomenCollectionPage = () => {
 
   return (
     <div className="pt-20">
-      <SEO title="Women's Collection" description="Elegance redefined for the modern woman." />
+      <SEO title="Accessories" description="Curated accessories – watches, leather goods, and more." />
 
-      <HeroSlider slides={womenHeroSlides} />
+      <HeroSlider slides={accessoriesHeroSlides} />
 
       <section className="border-b border-gray-200 px-6">
         <div className="max-w-7xl mx-auto py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -147,7 +147,7 @@ const WomenCollectionPage = () => {
             </div>
           ) : products.length === 0 ? (
             <div className="text-center py-20">
-              <p className="text-gray-500 text-lg mb-4">No products match your filters</p>
+              <p className="text-gray-500 text-lg mb-4">No accessories match your filters</p>
               <button
                 onClick={() => setFilters({ sort: 'featured', subcategory: '', size: '', maxPrice: undefined })}
                 className="btn-outline-dark"
@@ -168,4 +168,4 @@ const WomenCollectionPage = () => {
   );
 };
 
-export default WomenCollectionPage;
+export default AccessoriesPage;

@@ -1,45 +1,121 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { products } from '../../data/productData';
-import { useCart } from '../../context/CartContext';
+import { useState, useEffect } from 'react';
+import { fetchProducts, getSubcategories, getAvailableSizes, getPriceRange } from '../../services/api';
+import ProductCard from '../../components/ProductCard';
+import HeroSlider from '../../components/HeroSlider';
+import FilterSidebar from '../../components/FilterSidebar';
+import SEO from '../../components/SEO';
+
+const menHeroSlides = [
+  {
+    image: 'https://wandering-maroon-m7ikahhtjm.edgeone.app/2.png',
+    title: "Men's Collection",
+    subtitle: 'The Edit',
+    description: 'Refined essentials for the modern gentleman. Each piece designed with intention.',
+    link: '/men',
+    cta: 'Shop Now',
+  },
+  {
+    image: 'https://low-harlequin-neyyy2vzww.edgeone.app/2.png',
+    title: 'Premium Linen',
+    subtitle: 'New Season',
+    description: 'Discover our latest range of premium linen shirts and trousers.',
+    link: '/men',
+    cta: 'Explore',
+  },
+  {
+    image: 'https://tremendous-sapphire-bfiqeajuao.edgeone.app/3.png',
+    title: 'Tailored Fit',
+    subtitle: 'Signature Style',
+    description: 'Precision tailoring meets contemporary design.',
+    link: '/men',
+    cta: 'View All',
+  },
+];
 
 const CollectionPage = () => {
-  const [sortBy, setSortBy] = useState('featured');
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [filterOpen, setFilterOpen] = useState(false);
+  const [subcategories, setSubcategories] = useState([]);
+  const [sizes, setSizes] = useState([]);
+  const [priceRange, setPriceRange] = useState({ min: 0, max: 5000 });
+  const [filters, setFilters] = useState({
+    sort: 'featured',
+    subcategory: '',
+    size: '',
+    maxPrice: undefined,
+  });
 
-  const menProducts = products.filter((p) => p.category === 'men');
+  // Load filter options once
+  useEffect(() => {
+    const loadFilterOptions = async () => {
+      try {
+        const [subs, szs, pr] = await Promise.all([
+          getSubcategories('men'),
+          getAvailableSizes('men'),
+          getPriceRange('men'),
+        ]);
+        setSubcategories(subs);
+        setSizes(szs);
+        setPriceRange(pr);
+      } catch (err) {
+        console.error('Failed to load filter options:', err);
+      }
+    };
+    loadFilterOptions();
+  }, []);
+
+  // Fetch products when filters change
+  useEffect(() => {
+    const loadProducts = async () => {
+      setLoading(true);
+      try {
+        const data = await fetchProducts({
+          category: 'men',
+          subcategory: filters.subcategory || undefined,
+          size: filters.size || undefined,
+          maxPrice: filters.maxPrice,
+          sort: filters.sort,
+        });
+        setProducts(data);
+      } catch (err) {
+        console.error('Failed to load products:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadProducts();
+  }, [filters]);
 
   return (
     <div className="pt-20">
-      {/* Header */}
-      <section className="py-16 md:py-24 px-6 bg-cream-dark">
-        <div className="max-w-7xl mx-auto text-center">
-          <p className="section-subtitle">The Edit</p>
-          <h1 className="section-title mb-4">Men's Collection</h1>
-          <p className="text-gray-500 max-w-lg mx-auto">
-            Refined essentials for the modern gentleman. Each piece designed
-            with intention, crafted with precision.
-          </p>
-        </div>
-      </section>
+      <SEO title="Men's Collection" description="Refined essentials for the modern gentleman." />
 
-      {/* Filter Bar (Non-functional) */}
+      {/* Hero Slider */}
+      <HeroSlider slides={menHeroSlides} />
+
+      {/* Filter Bar */}
       <section className="border-b border-gray-200 px-6">
         <div className="max-w-7xl mx-auto py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs tracking-wider text-gray-500 uppercase">
-            {menProducts.length} Pieces
+            {products.length} {products.length === 1 ? 'Piece' : 'Pieces'}
           </p>
           <div className="flex items-center gap-6">
-            {/* Filter Button (Visual Only) */}
-            <button className="flex items-center gap-2 text-xs tracking-wider uppercase text-gray-600 hover:text-gold transition-colors duration-300">
+            <button
+              onClick={() => setFilterOpen(true)}
+              className="flex items-center gap-2 text-xs tracking-wider uppercase text-gray-600 hover:text-gold transition-colors duration-300"
+            >
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
               </svg>
               Filter
+              {(filters.subcategory || filters.size || filters.maxPrice) && (
+                <span className="w-2 h-2 bg-gold rounded-full" />
+              )}
             </button>
-            {/* Sort Select */}
             <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
+              value={filters.sort}
+              onChange={(e) => setFilters(f => ({ ...f, sort: e.target.value }))}
               className="text-xs tracking-wider uppercase text-gray-600 bg-transparent border-none outline-none cursor-pointer"
             >
               <option value="featured">Featured</option>
@@ -51,54 +127,49 @@ const CollectionPage = () => {
         </div>
       </section>
 
+      {/* Filter Sidebar */}
+      <FilterSidebar
+        isOpen={filterOpen}
+        onClose={() => setFilterOpen(false)}
+        filters={filters}
+        onFilterChange={setFilters}
+        subcategories={subcategories}
+        sizes={sizes}
+        priceRange={priceRange}
+      />
+
       {/* Product Grid */}
       <section className="py-16 px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-8">
-            {menProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
+          {loading ? (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-8">
+              {[...Array(8)].map((_, i) => (
+                <div key={i} className="animate-pulse">
+                  <div className="aspect-[3/4] bg-gray-200 mb-4" />
+                  <div className="h-4 bg-gray-200 w-3/4 mb-2" />
+                  <div className="h-3 bg-gray-200 w-1/4" />
+                </div>
+              ))}
+            </div>
+          ) : products.length === 0 ? (
+            <div className="text-center py-20">
+              <p className="text-gray-500 text-lg mb-4">No products match your filters</p>
+              <button
+                onClick={() => setFilters({ sort: 'featured', subcategory: '', size: '', maxPrice: undefined })}
+                className="btn-outline-dark"
+              >
+                Clear Filters
+              </button>
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-8">
+              {products.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          )}
         </div>
       </section>
-    </div>
-  );
-};
-
-const ProductCard = ({ product }) => {
-  const { addToCart } = useCart();
-
-  return (
-    <div className="group">
-      <Link
-        to={`/product/${product.id}`}
-        className="block relative overflow-hidden mb-4 aspect-[3/4]"
-      >
-        <img
-          src={product.images[0]}
-          alt={product.name}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-          loading="lazy"
-        />
-        {/* Quick Add */}
-        <div className="absolute bottom-0 left-0 right-0 p-3 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-500">
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              addToCart(product, product.sizes[1] || product.sizes[0]);
-            }}
-            className="w-full py-3 bg-cream text-gray-900 text-xs tracking-widest uppercase hover:bg-gold hover:text-white transition-colors duration-300"
-          >
-            Quick Add
-          </button>
-        </div>
-      </Link>
-      <Link to={`/product/${product.id}`} className="block">
-        <h3 className="text-sm font-medium text-gray-900 group-hover:text-gold transition-colors duration-300 line-clamp-1">
-          {product.name}
-        </h3>
-        <p className="text-sm text-gray-500 mt-1">${product.price}</p>
-      </Link>
     </div>
   );
 };
